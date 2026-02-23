@@ -82,25 +82,25 @@ router.get('/', async (req, res) => {
                     process.exit(0);
                 } else if (connection === "close" && lastDisconnect && lastDisconnect.error && lastDisconnect.error.output.statusCode !== 401) {
                     await delay(10000);
-                    DanuwaPair();
+                    AnuwaPair();
                 }
             });
         } catch (err) {
             exec('pm2 restart danuwa-md');
             console.log("service restarted");
-            DanuwaPair();
+            AnuwaPair();
             await removeFile('./session');
             if (!res.headersSent) {
                 await res.send({ code: "Service Unavailable" });
             }
         }
     }
-    return await DanuwaPair();
+    return await AnuwaPair();
 });
 
 process.on('uncaughtException', function (err) {
     console.log('Caught exception: ' + err);
-    exec('pm2 restart danuwa');
+    exec('pm2 restart anuwa');
 });
 
 
